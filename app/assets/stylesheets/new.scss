@@ -1,0 +1,33 @@
+
+
+.post-container {
+    /*position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%,-50%);*/
+    margin: 50px auto;
+    width: 50%;
+    border: solid #d3def1;
+    border-radius: 10px;
+    text-align: center;
+    background-color: #d3def1;
+  }
+ 
+  .post-container input[type="about"] {
+    width: 95%;
+    height: 40px;
+  }
+
+  .form-group{
+    display: flex;
+    justify-content: center;
+  }
+
+  .post-container input[type="submit"] {
+    width: 200px;
+    font-size: 20px;
+    margin-top: 50px;
+    margin-bottom: 30px;
+    
+  }
+

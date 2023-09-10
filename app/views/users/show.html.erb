@@ -1,0 +1,48 @@
+<div class="user-info">
+
+
+<% if @user.image.nil? %>
+  <%= image_tag 'icon.png', :size =>'250x200', style: 'border-radius: 50%;'%>
+<% else %>
+  <%= image_tag @user.image_url, size: "250x200", class: "profile-image8" if @user.image? %>
+<% end %>
+
+<p>Name: <%= @user.name %></p>
+<p>Mail : <%= @user.email %></p>
+<p>Profile : <%= @user.profile %></p>
+
+<%= render 'follow_form' %>
+<%= render 'stats' %>
+
+<% @user.followings.each do |user| %>
+  <table>
+  <tr>
+    <td> <%= user.name %> </td>
+    <td><%= link_to '詳細', user_path(user) %></td>
+  </tr>
+  
+</table>
+<% end %>
+
+<% if current_user.id == @user.id %>
+  <%= link_to "編集する", edit_user_registration_path %>
+<% end %>
+
+<h2>ユーザーの投稿一覧</h2>
+<% @user.actives.each do |t| %>
+  <%= t.user.name %>
+  <%= t.title %>
+  <%= t.about %>
+<% end %>
+
+<h2>ユーザーがいいねした投稿一覧</h2>
+<% @user.liked_actives.each do |t| %>
+  <%= t.user.name %>
+  <%= t.title %>
+  <%= t.about %>
+<% end %>
+
+</div>
+
+
+<%= link_to "一覧に戻る", root_path %>

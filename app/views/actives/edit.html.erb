@@ -1,0 +1,20 @@
+<%= form_for @active do |f| %>
+    <div class="field">
+    <%= f.label :title %>
+    <%= f.text_field :title, :size => 30 %>
+  </div>
+
+  <div class="field">
+    <%= f.label :about  %>
+    <%= f.text_field :about, :size => 60 %>
+  </div>
+
+  <div class="field">
+    <%= f.label :image %>
+    <%= f.file_field :image %>
+  </div>
+
+    <%= f.submit "編集する" %>
+  <% end %>
+
+ 

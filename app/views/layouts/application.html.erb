@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Ecoactive</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+    <script src="https://kit.fontawesome.com/8131020e53.js" crossorigin="anonymous"></script>
+
+    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+
+  <body>
+  <% unless current_page?(root_path) || current_page?(actives_path) %>
+    <header>
+
+  <div class="logo1">
+    <%= link_to "EcoSteps", root_path %>
+
+    
+    <div class="hamburger-menu">
+        <input type="checkbox" id="menu-btn-check">
+        <label for="menu-btn-check" class="menu-btn"><span></span></label>
+        <div class="menu-content">
+        <ul>
+          <% if user_signed_in? %>
+            <li><%= link_to "マイページへ", user_path(current_user.id) %></li>
+            <li><%= link_to 'ログアウト', destroy_user_session_path, method: :delete %></li>
+          <% else %>
+            <li><%= link_to "新規登録", new_user_registration_path %></li>
+            <li><%= link_to "ログイン", new_user_session_path %></li>
+          <% end %>
+        </ul>
+        </div>
+    </div>
+    
+    </header>
+    <% end %>
+    <main>
+    <%= yield %>
+
+
+    </main>
+  </body>
+
+  
+</html>
+

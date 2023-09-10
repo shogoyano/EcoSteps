@@ -1,0 +1,59 @@
+<h1>エコ</h1>
+<h3>投稿詳細</h3>
+
+<div class="active">
+  <p><%= @active.user.email %></p>
+  <p><%= @active.title %></p>
+  <p><%= @active.about %></p>
+
+  <% @active.tags.each do |tag| %>
+    <span><%= tag.name %></span>
+<% end %>
+  
+
+<% if user_signed_in? %>
+  <% if current_user.already_liked?(@active) %>
+    <%= link_to active_like_path(@active), method: :delete do %>
+      <i class="fas fa-heart"></i><%= @active.likes.count %>
+    <% end %>
+  <% else %>
+    <%= link_to active_likes_path(@active), method: :post do %>
+      <i class="far fa-heart"></i><%= @active.likes.count %>
+    <% end %>
+  <% end %>
+<% else %>
+  <i class="far fa-heart"></i><%= @active.likes.count %>
+<% end %>
+
+</div>
+
+<h2>いいねしたユーザー</h2>
+<% @active.liked_users.each do |user| %>
+  <li><%= user.email %></li>
+<% end %>
+
+
+<div class="comment-wrapper">
+  <h3>コメント一覧</h3>
+  <% @comments.each do |c| %>
+    <div>
+      <%= c.user.email unless c.user.blank? %>
+      <br>
+      <%= c.content %>
+    </div>
+      <br>
+  <% end %>
+
+  <% if user_signed_in? %>
+    <%= form_with(model: [@active, @comment], local: true) do |f| %>
+      <%= f.text_area :content %>
+      <%= button_tag type: "submit" do %>
+        <i class="far fa-comments"></i> コメントする
+      <% end %>
+    <% end %>
+  <% end %>
+</div>
+
+
+<%= link_to "編集する", edit_active_path(@active.id) %>
+<%= link_to "投稿一覧に戻る", actives_path %>

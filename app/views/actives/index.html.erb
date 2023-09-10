@@ -1,0 +1,132 @@
+<header>
+<div class="logo2">
+<%= link_to "EcoSteps", root_path %>
+</div>
+
+  <div class="header-list">
+  <div class="search-container">
+  <div class="wordsearch-countainer">
+  <div class="search-box">
+    <%= form_tag({controller:"actives",action:"index"}, method: :get) do %>
+      <%= text_field_tag :search %>
+      <%= submit_tag '検索する'  %>
+      <% end %>
+  </div>
+
+  <div class="catesearch-container">
+  <div class="search-box">
+  <h3>カテゴリー検索</h3>
+  </div>
+
+  <div class="search-box-outer">
+  <div class = "search-box-inner">
+    <%= form_tag({controller:"actives",action:"index"}, method: :get) do %>
+        <% Tag.all.each do |t| %>
+      
+        <li><%= check_box :tag_ids, t.name %><%= t.name %></li>
+  </div>
+  <% end %>
+</div>
+
+<div class="search-box">
+  <%= submit_tag '検索' %>
+</div>
+  <% end %>
+  </div>
+</div>
+
+<!--
+<%= form_tag({controller:"actives",action:"index"}, method: :get) do %>
+  <%= text_field_tag :tag %>
+  <%= submit_tag 'タグを追加' %>
+<% end %>
+-->
+    </div>
+
+
+      <ul>
+      <% if user_signed_in? %>
+        <li><%= link_to "マイページへ", user_path(current_user.id) %></li>
+        <li><%= link_to 'ログアウト', destroy_user_session_path, method: :delete %></li>
+      <% else %>
+        <li><%= link_to "新規登録", new_user_registration_path %></li>
+        <li><%= link_to "ログイン", new_user_session_path %></li>
+      <% end %>
+      </ul>
+    </div>
+    </header>
+
+
+<div class="main-container">
+
+<%= image_tag 'eco.jpg', :size =>'100%x100%'%>
+
+</div>
+
+
+
+<!--
+<% if user_signed_in? %>
+  <%= link_to "マイページへ", user_path(current_user.id) %>
+  <%= button_to 'ログアウト', destroy_user_session_path, method: :delete %>
+<% end %>
+-->
+
+<div class="NewPost">
+<h3>New Post</h3>
+</div>
+
+<div class="actives-container">
+  <% @actives.each do |t| %>
+    <div class="active">
+      <%= image_tag t.image_url, size: "250x200" if t.image? %>
+      <%= image_tag t.user.image_url, size: "45x30", class: "profile-image9"  if t.user.image? %>
+      <% if user_signed_in? %>
+        <%= link_to t.user.name, user_path(t.user.id) %>
+      <% else %>
+        <%= link_to t.user.name, new_user_session_path %>
+      <% end %>
+        <%= t.title %>
+       
+
+      <% if user_signed_in? %>
+        <% if current_user.already_liked?(t) %>
+          <%= link_to active_like_path(id: t.id, active_id: t.id), method: :delete do %>
+            <i class="fas fa-heart"></i><%= t.likes.count %>
+          <% end %>
+        <% else %>
+          <%= link_to active_likes_path(id: t.id, active_id: t.id), method: :post do %>
+            <i class="fas fa-heart"></i><%= t.likes.count %>
+          <% end %>
+        <% end %>
+      <% else %>
+        <i class="fas fa-heart"></i><%= t.likes.count %>
+      <% end %>
+
+      <%= t.created_at %>
+
+      <div class="right-container">  
+      <%= link_to "詳細へ", active_path(t.id) %> 
+
+      <% if user_signed_in? && current_user.id == t.user_id %>
+        <%= link_to "編集する", edit_active_path(t.id) %>
+        <%= link_to "削除する", active_path(t.id), method: :delete %>
+      <% end %> 
+      
+      </div>
+
+      </div>
+  <% end %>
+
+</div>
+
+<%= page_entries_info @actives %>
+<%= paginate @actives %>
+
+<div class="fixed-button">
+  <% if user_signed_in? %>
+    <%= link_to "新規投稿へ", new_active_path %> 
+  <% else %>
+    <%= link_to "新規投稿へ", new_user_session_path %>
+  <% end %>
+</div>
