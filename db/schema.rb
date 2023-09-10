@@ -24,7 +24,6 @@ ActiveRecord::Schema.define(version: 2023_08_11_134827) do
   create_table "actives", force: :cascade do |t|
     t.string "title"
     t.text "about"
-    t.string "image"
     t.integer "star"
     t.string "category"
     t.datetime "created_at", precision: 6, null: false
