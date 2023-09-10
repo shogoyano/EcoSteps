@@ -1,7 +1,7 @@
 databases:
   - name: EcoSteps_DB
     databaseName: ecosteps_db
-    user: EcoSteps
+    user: ecosteps_db_qaz6_user
     region: singapore
 
 services:
