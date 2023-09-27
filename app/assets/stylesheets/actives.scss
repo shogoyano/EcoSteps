@@ -1,3 +1,277 @@
 // Place all the styles related to the actives controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: https://sass-lang.com/
+
+/*index*/
+.actives-container {
+    width:100%;
+    display: flex;
+    justify-content: center;
+    flex-wrap:wrap;
+}  
+
+.out-active{
+    width:40%;
+    border-bottom: solid 2px;
+    display:flex;
+    justify-content: center;
+}
+
+.out-active:nth-child(odd){
+    padding-left: 2%;
+}
+
+.out-active:nth-child(even) {
+    padding-right: 2%;
+}
+
+.actives-container::after{
+    content: "";
+    display: block;
+    width: 40%;  /* .boxに指定したwidthと同じ幅を指定する */
+    border-bottom: solid 2px;
+}
+
+.active { 
+    height:80%;
+    width:67%;
+    margin-top:15%;
+    margin-bottom:10%;
+}
+
+.active:hover{
+    opacity: 0.7;
+    cursor: pointer;
+}
+
+figure{
+    width:100%;
+    border-radius: 20px;
+    overflow: hidden;
+    margin-bottom:2%;
+}
+
+figure .active-image1{
+    height:30vh;
+    width: 100%;
+    transition: .4s;
+    object-fit: cover;
+}
+
+.active:hover .active-image1{
+    transform: scale(1.1);
+}
+
+.post-top{
+    display: flex;
+    margin: 2% 0;
+}
+
+.post-time{
+    margin-left:5%;
+    font-size: 18px;
+}
+
+.post-tag{
+    text-align: right;
+    margin-left: 48%;
+    width: 20%;
+}
+
+.post-tag span{
+    padding-left: 7%;
+    padding-right: 7%;
+    border-radius: 10px;
+    font-size:14px;
+    border: solid 1px;
+}
+
+.post-title{
+    font-size:36px;
+    margin:1% 0% 3% 2%;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    line-height: 1em
+}
+
+.active-under{
+    display: flex;
+    justify-content: right;
+}
+
+.active-user-box{
+    margin-left:50%;
+    display: flex;
+}
+
+.active-like{
+    margin-left:5%;
+}
+
+/*active show*/
+.detail-title{
+    margin-left: 48%;
+    margin-bottom: 3%;
+    padding-top: 8vw;
+}
+
+.detail-box{
+    width: 80%;
+    margin:2% 15% 5% 10%;
+    display: flex;
+    border: solid 1px;
+    border-radius: 10px;
+    padding-top:3%;
+    padding-bottom:3%;
+}
+
+
+.active-image2{
+    width: 100%;
+    height: 100%;
+    border-radius: 10px;
+    
+}
+
+.detail-image{
+    margin-left: 5%;
+    width:35%
+}
+
+.detail-info{
+    padding-left:3%;
+    margin-right:3%;
+    width:55%;
+}
+
+.detail-up{
+    margin-bottom: 3%;
+    
+    
+}
+
+.detail-up p{
+    font-size: 32px;
+    font-weight: bold;
+    padding-top:2%;
+}
+
+.detail-about{
+   
+    font-size:150%;
+    padding: 0 2%;
+}
+
+.detail-under{
+    display: flex;
+    justify-content: right;
+    margin-right: 5%;
+    margin-top: 4%;
+}
+
+.detail-under span{
+    margin-right: 5%;
+    padding:1px 5px ;
+    border-radius: 10px;
+    font-size:16px;
+    border: solid 1px;
+    height: 24px;
+}
+
+.detail-time{
+    font-size:20px;
+    margin-right:5%;
+}
+
+.detail-under a{
+    padding-bottom: 2%;
+    margin-right:2%;
+}
+
+.detail-bottom{
+    display: flex;
+    justify-content: center;
+    margin :auto;
+    width:78%;
+    margin-bottom: 3%;
+}
+
+.detail-comment{
+    width:75%;
+    margin-right:5%;
+    border:solid 1px;
+    border-radius: 10px;
+    
+}
+
+.detail-comment h3{
+    text-align: center;
+    padding: 1% 0;
+    border-bottom: solid 1px;
+    border-radius: 10px 10px 0 0;
+    margin-bottom: 1%;
+    background-color: rgb(236, 232, 223);
+}
+
+.detail-comment p{
+    margin-left:3%;
+}
+
+.comment-box{
+    margin:2% 0;
+}
+
+.detail-like{
+    width:20%;
+    margin-left:5%;
+}
+
+.comment-user{
+    display: flex;
+    padding-left: 2%;
+}
+
+.comment-user a{
+    margin-right: 3%;
+}
+
+.comment-edit{
+    font-size: 12px;
+    padding-left: 3%;
+}
+
+.comment-new{
+    padding:2% 0 2% 2%;
+}
+
+.detail-like{
+    border: solid 1px;
+    border-radius: 10px;
+}
+
+.detail-like h3{
+    text-align: center;
+    padding: 1%;
+    border-bottom: solid 1px;
+    border-radius: 10px 10px 0 0;
+    margin-bottom: 1%;
+    background-color: rgb(236, 232, 223);
+}
+
+.like-user{
+    display: flex;
+    margin: 4% 0 4% 4%;
+}
+
+.detail-edit-box{
+    text-align: center;
+    margin: 2% 0;
+}
+
+.detail-edit-box a{
+    margin:0 1%;
+}
+
+

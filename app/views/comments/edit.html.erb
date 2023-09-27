@@ -1,0 +1,17 @@
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+<h1>コメントを編集する</h1>
+<%= form_for @comment, url: edit_comment_path do |f| %>
+    <%= f.label :content %>
+    <%= f.text_field :content, :size => 140 %> 
+    <%= f.submit "編集する" %>
+  <% end %>

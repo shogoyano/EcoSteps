@@ -1,35 +1,76 @@
-.logo2{
-    margin:20px ;
+/* index*/
+.search-box input[type="text"]{
+  font-size: 16px; /* フォントサイズを変更 */
+  font-family: Arial, sans-serif; /* フォントを変更 */
+}
+
+.kari{
+    width:100%;
+    height:80px;
+}
+
+.slide-box{
+  position: relative;
+}
+
+.slide {
+  position: relative;
+  width: 100%;
+  height: 870px;
+  overflow: hidden;
+}
+
+  @keyframes slideshow {
+    0%{
+      opacity: 0;
+    }
+    10%{
+      opacity: 0.7;
+    }
+    28%{
+      opacity: 0.7;
+    }
+    38%{
+      opacity: 0;
+    }
+    100%{
+      opacity: 0;
+    }
   }
 
-
-.main-container {
+.slide img {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     width: 100%;
-    height: 800px
+    height: auto;
+    opacity: 0;
+    animation :slideshow 24s linear infinite;
 }
   
-.catesearch-container {
-    width:300px;
-    display: flex;
-
-}
-
-.actives-container {
-    width:100%;
-    display: flex;
-    flex-wrap:wrap;
-    justify-content: center;
-}  
-  
-.active {
-    border: solid #c09a494f;
-    padding-top: 20px;
-    background-color: #f3d88da9;
-    width: 40%;
-    margin:1%;
-    height:120px;
+.slide img:nth-child(2){
+  animation-delay: 8s;
 }
  
+.slide img:last-child{
+  animation-delay: 16s;
+}
+
+.slide-center{
+  position: absolute;
+  top: 35%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  font-size:28px;
+  padding:1% 3%;
+  border-radius: 20px;
+  text-shadow: 2px 3px 3px #949393;
+}
+
+
+
 .user{
     width: 20px;
 
@@ -38,7 +79,7 @@
 .fixed-button a{
     width: 100px; /* ボタンの幅 */
     height: 100px; /* ボタンの高さ */
-    background-color:#9c7d387c; /* ボタンの背景色 */
+    background-color:#997a38a4; /* ボタンの背景色 */
     color: #fff; /* ボタンのテキスト色 */
     border-radius: 50%; /* ボタンを丸くする */
     text-align: center;
@@ -51,14 +92,74 @@
   
   /* ボタンのホバースタイル（オプション） */
   .fixed-button a:hover {
-    background-color: #b88700ec; /* ホバー時の背景色 */
+    background-color: #92772bec; /* ホバー時の背景色 */
   }
 
-.profile-image9{
+
+.NewPost h1{
+    text-align: center;
+    margin-top: 10%;
+    margin-bottom: 3%;
+    font-size: 45px;
+}
+
+.search{
+    height: 25px;
+    width: 300px;
+}
+
+.profile-image1{
+    height: 25px;
+    width: 25px;
     border-radius: 50%;
 }
 
-.NewPost{
+hr {
+    border-width: 2px 0px 0px 0px; /* 太さ */
+    border-style: solid; /* 線種 */
+    border-color: black;   /* 線色 */
+    height: 1px;         /* 高さ(※古いIE用) */
+    margin-left: 8%;
+    margin-right: 8%;
+ }
+
+ .item__paginate{
+    width: 100%;
+    margin: auto;
+  }
+
+  .pagination{
     text-align: center;
-    margin:50px auto;
-}
+    display: flex;
+    justify-content: center; 
+    margin-top:7px;
+    margin-bottom:7px;
+  }
+
+  .pagination span{
+    text-align: center;
+    width: 50px;
+    font-size: 20px;
+  }
+
+  .pagination a{
+    color: #818181;
+    display: block;
+    font-weight: bold;
+    padding: 10px;
+  }
+
+  .pagination a:hover{
+    width: 24px;
+    height: 24px;
+    background-color: #b88700ec;
+    color: #FFF;
+    border-radius: 100%;
+    padding: 10px;
+  }
+
+  .current{
+    font-weight: bold;
+    color: #c0973f;
+    padding: 10px;
+  }

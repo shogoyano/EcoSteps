@@ -1,44 +1,47 @@
+<div class="head-con">
+  <h1>Sign up</h1>
+</div>
+
 <div class="user-new-container">
 
+  <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+    <%= render "users/shared/error_messages", resource: resource %>
 
-<h2>新規登録</h2>
+    <div class="regi-name">
+      <%= f.label :name %><br />
+      <%= f.text_field :name, autofocus: true , :size => 45 %>
+    </div>
 
-<%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
-  <%= render "users/shared/error_messages", resource: resource %>
+    <div class="reg-image">
+      <%= f.label :image %>
+      <%= f.file_field :image %>
+    </div>
 
-  <div class="regi-name">
-    <%= f.label :name %><br />
-    <%= f.text_field :name, autofocus: true %>
-  </div>
+    <div class="reg-email">
+      <%= f.label :email %><br />
+      <%= f.email_field :email, autofocus: true, autocomplete: "email" , :size => 45 %>
+    </div>
 
-  <div class="reg-image">
-    <%= f.label :image %>
-    <%= f.file_field :image %>
-  </div>
+    <div class="reg-password">
+      <%= f.label :password %>
+      <% if @minimum_password_length %>
+        <p>(<%= @minimum_password_length %> characters minimum)</p>
+      <% end %>
+      <%= f.password_field :password, autocomplete: "new-password", :size => 45 %>
+    </div>
 
-  <div class="reg-email">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
-  </div>
+    <div class="reg-pass-confirm">
+      <%= f.label :password_confirmation %><br />
+      <%= f.password_field :password_confirmation, autocomplete: "new-password" , :size => 45%>
+    </div>
 
-  <div class="reg-password">
-    <%= f.label :password %>
-    <% if @minimum_password_length %>
-    <em>(<%= @minimum_password_length %> characters minimum)</em>
-    <% end %><br />
-    <%= f.password_field :password, autocomplete: "new-password" %>
-  </div>
+    <div class="signup">
+      <%= f.submit "登録" %>
+    </div>
+  <% end %>
 
-  <div class="reg-pass-confirm">
-    <%= f.label :password_confirmation %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
-  </div>
+</div>
 
-  <div class="signup">
-    <%= f.submit "登録" %>
-  </div>
-<% end %>
-
-<%= render "users/shared/links" %>
-
+<div class="new-login">
+  <%= render "users/shared/links" %>
 </div>

@@ -1,48 +1,237 @@
-<div class="user-info">
+<div class="user-page-title">
+  <% if current_user.id == @user.id %>
+    <h1>My page</h1>
+  <% else %>
+    <h1>User</h1>
+  <% end %>
+<hr>
+</div>
 
+<div class="userbox">
 
-<% if @user.image.nil? %>
-  <%= image_tag 'icon.png', :size =>'250x200', style: 'border-radius: 50%;'%>
-<% else %>
-  <%= image_tag @user.image_url, size: "250x200", class: "profile-image8" if @user.image? %>
-<% end %>
+  <div class="user-icon">
+  <% if !@user.image? %>
+    <%= image_tag "user-icon.png", :size =>'200x200',class:"profile-image2" %>
+  <% else %>
+    <%= image_tag @user.image_url, :size =>'200x200', class: "profile-image2" %>
+  <% end %>
+  </div>
 
-<p>Name: <%= @user.name %></p>
-<p>Mail : <%= @user.email %></p>
-<p>Profile : <%= @user.profile %></p>
-
-<%= render 'follow_form' %>
-<%= render 'stats' %>
-
-<% @user.followings.each do |user| %>
-  <table>
-  <tr>
-    <td> <%= user.name %> </td>
-    <td><%= link_to '詳細', user_path(user) %></td>
-  </tr>
-  
-</table>
-<% end %>
-
-<% if current_user.id == @user.id %>
-  <%= link_to "編集する", edit_user_registration_path %>
-<% end %>
-
-<h2>ユーザーの投稿一覧</h2>
-<% @user.actives.each do |t| %>
-  <%= t.user.name %>
-  <%= t.title %>
-  <%= t.about %>
-<% end %>
-
-<h2>ユーザーがいいねした投稿一覧</h2>
-<% @user.liked_actives.each do |t| %>
-  <%= t.user.name %>
-  <%= t.title %>
-  <%= t.about %>
-<% end %>
+  <div class="user-info">
+    <div class="user-top-info">
+      <p class="user-name"><%= @user.name %></p>
+      <%= render 'follow_form' %>
+    </div>
+    <br>
+    <p>Mail : <%= @user.email %></p>
+    <br>
+    <p>Profile : <%= @user.profile %></p>
+  </div>
 
 </div>
 
+<div class="user-under">
+  <div class="user-fo">
+    <%= render 'stats' %>
+  </div>
 
-<%= link_to "一覧に戻る", root_path %>
+  <div class="user-edit">
+    <% if current_user.id == @user.id %>
+      <%= link_to "編集する", edit_user_registration_path %>
+    <% end %>
+    </div>
+  </div>
+</div>
+  
+<div class="tab-wrap">
+  <input id="tab01" type="radio" name="tab" class="tab-switch" checked="checked"><label class="tab-label" for="tab01">Post</label>
+  <div class="tab-content">
+      <div class="actives-container">
+        <% @user.actives.each do |t| %>
+          <div class="out-active">
+            <div class="active">
+
+            <div class="active-path" onclick="location.href='<%= active_path(t.id) %>'" style="cursor: pointer;">
+
+              <figure>
+                <% if !t.image? %>
+                  <%= image_tag "default-photo.jpg",class:"active-image1" %>
+                <% else %>
+                  <%= image_tag t.image_url, class: "active-image1" %>
+                <% end %>
+              </figure>
+
+              <div class="post-top">
+                <div class="active-time">
+                  <%= t.updated_at.strftime("%Y-%m-%d") %>
+                </div>
+              </div>
+
+              <div class="post-title"> 
+                <%= t.title %>
+              </div>        
+
+              <div class="active-under">
+                <div class="active-user-box">
+                  <% if !t.user.image? %>
+                    <%= image_tag "user-icon.png", class:"profile-image1" %>
+                  <% else %>
+                    <%= image_tag t.user.image_url,  class: "profile-image1" %>
+                  <% end %>                    
+                  <% if user_signed_in? %>
+                    <%= link_to t.user.name, user_path(t.user.id) %>
+                  <% else %>
+                    <%= link_to t.user.name, new_user_session_path %>
+                  <% end %>
+                </div>
+
+                <div class="active-like">
+                  <% if user_signed_in? %>
+                    <% if current_user.already_liked?(t) %>
+                      <%= link_to active_like_path(id: t.id, active_id: t.id), method: :delete do %>
+                      <i class="fas fa-heart"></i><%= t.likes.count %>
+                      <% end %>
+                    <% else %>
+                      <%= link_to active_likes_path(id: t.id, active_id: t.id), method: :post do %>
+                      <i class="fas fa-heart"></i><%= t.likes.count %>
+                      <% end %>
+                    <% end %>
+                  <% else %>
+                    <i class="fas fa-heart"></i><%= t.likes.count %>
+                  <% end %>
+                </div> 
+              </div> 
+
+            </div>
+
+            </div>
+          </div>
+        <% end %>
+      </div>
+
+  </div>
+
+  <input id="tab02" type="radio" name="tab" class="tab-switch"><label class="tab-label" for="tab02">Likes</label>
+  <div class="tab-content">
+    <div class="actives-container">
+      <% @user.liked_actives.each do |t| %>
+        <div class="out-active">
+          <div class="active">
+
+          <div class="active-path" onclick="location.href='<%= active_path(t.id) %>'" style="cursor: pointer;">
+
+            <figure>
+              <% if !t.image? %>
+                <%= image_tag "default-photo.jpg", class:"active-image1" %>
+              <% else %>
+                <%= image_tag t.image_url, class: "active-image1" %>
+              <% end %>
+            </figure>
+
+            <div class="post-top">
+              <div class="active-time">
+                <%= t.updated_at.strftime("%Y-%m-%d") %>
+              </div>
+            </div>
+            
+            <div class="post-title"> 
+              <%= t.title %>
+            </div>        
+
+            <div class="active-under">
+              <div class="active-user-box">
+                <% if !t.user.image? %>
+                  <%= image_tag "user-icon.png", class:"profile-image1" %>
+                <% else %>
+                  <%= image_tag t.user.image_url,  class: "profile-image1" %>
+                <% end %>
+                    
+                <% if user_signed_in? %>
+                  <%= link_to t.user.name, user_path(t.user.id) %>
+                <% else %>
+                  <%= link_to t.user.name, new_user_session_path %>
+                <% end %>
+              </div>
+
+              <div class="active-like">
+                <% if user_signed_in? %>
+                  <% if current_user.already_liked?(t) %>
+                    <%= link_to active_like_path(id: t.id, active_id: t.id), method: :delete do %>
+                    <i class="fas fa-heart"></i><%= t.likes.count %>
+                    <% end %>
+                  <% else %>
+                    <%= link_to active_likes_path(id: t.id, active_id: t.id), method: :post do %>
+                    <i class="fas fa-heart"></i><%= t.likes.count %>
+                    <% end %>
+                  <% end %>
+                <% else %>
+                  <i class="fas fa-heart"></i><%= t.likes.count %>
+                <% end %>
+              </div> 
+            </div>
+            
+          </div>
+            
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>   
+
+  <input id="tab03" type="radio" name="tab" class="tab-switch"><label class="tab-label" for="tab03">Relationships</label>
+      <div class="tab-content">
+
+        <div class="relation-box">
+          <div class="following-box">
+          <h2 id="Fo1">Following</h2>
+            <% @user.followings.each do |user| %>
+              <span>
+                <% if !user.image? %>
+                  <%= image_tag "user-icon.png", class:"profile-image1" %>
+                <% else %>
+                  <%= image_tag user.image_url,  class: "profile-image1" %>
+                <% end %>
+              
+                <% if user_signed_in? %>
+                  <%= link_to user.name, user_path(user.id) %>
+                <% else %>
+                  <%= link_to user.name, new_user_session_path %>
+                <% end %>
+              </span>
+            <% end %>
+          </div>
+          
+          <div class="follower-box">  
+          <h2 id="Fo2">Followers</h2>
+            <% @user.followers.each do |user| %>    
+              <span>    
+                <% if !user.image? %>
+                  <%= image_tag "user-icon.png", class:"profile-image1" %>
+                <% else %>
+                  <%= image_tag user.image_url,  class: "profile-image1" %>
+                <% end %>
+                
+                <% if user_signed_in? %>
+                  <%= link_to user.name, user_path(user.id) %>
+                <% else %>
+                  <%= link_to user.name, new_user_session_path %>
+                <% end %>
+              </span>
+            <% end %>
+          </div>
+        </div>
+      </div>
+
+</div>
+
+<div class="user-bottom">
+  <%= link_to "トップページに戻る", root_path %>
+</div>
+
+<div class="fixed-button">
+  <% if user_signed_in? %>
+    <%= link_to "新規投稿へ", new_active_path %> 
+  <% else %>
+    <%= link_to "新規投稿へ", new_user_session_path %>
+  <% end %>
+</div>

@@ -14,7 +14,7 @@ class ActivesController < ApplicationController
         end
         @actives.uniq!
 
-        @actives = Kaminari.paginate_array(@actives).page(params[:page]).per(12)
+        @actives = Kaminari.paginate_array(@actives).page(params[:page]).per(6)
       end
     
       if params[:tag]
@@ -65,11 +65,10 @@ class ActivesController < ApplicationController
       active.destroy
       redirect_to action: :index
     end
-
+  
   private
     def active_params
       params.require(:active).permit(:title, :about, :image, tag_ids: [])
     end
-
 
 end

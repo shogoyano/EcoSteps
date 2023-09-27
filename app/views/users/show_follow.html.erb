@@ -1,9 +1,85 @@
-<% @user.followings.each do |user| %>
-    <table>
-    <tr>
-      <td>  <%= user.name %> </td>
-      <td><%= link_to '詳細', user_path(user) %></td>
-    </tr>
-    
-    </table>
+<div class="user-page-title">
+  <% if current_user.id == @user.id %>
+    <h1>My page</h1>
+  <% else %>
+    <h1>User</h1>
+  <% end %>
+</div>
+
+<div class="userbox">
+
+  <div class="user-icon">
+  <% if !@user.image? %>
+    <%= image_tag "icon.png", :size =>'100%x100%',class:"profile-image2" %>
+  <% else %>
+    <%= image_tag @user.image_url, :size =>'100%x100%', class: "profile-image2" %>
+  <% end %>
+  </div>
+
+  <div class="user-info">
+    <div class="user-top-info">
+      <p class="user-name"><%= @user.name %></p>
+      <%= render 'follow_form' %>
+    </div>
+    <br>
+    <p>Mail : <%= @user.email %></p>
+    <p>Profile : <%= @user.profile %></p>
+  </div>
+
+</div>
+
+<div class="user-under">
+  <div class="user-fo">
+      
+      <%= render 'stats' %>
+  </div>
+
+  <div class="user-edit">
+    <% if current_user.id == @user.id %>
+      <%= link_to "編集する", edit_user_registration_path %>
     <% end %>
+    </div>
+  </div>
+</div>
+
+<div class="tab-wrap">
+    <input id="tab01" type="radio" name="tab" class="tab-switch" checked="checked"><label class="tab-label" for="tab01">Following</label>
+    <div class="tab-content">
+      <div class="following-box">
+        <% @user.followings.each do |user| %>
+          <% if !user.image? %>
+            <%= image_tag "icon.png", class:"profile-image1" %>
+          <% else %>
+            <%= image_tag user.image_url,  class: "profile-image1" %>
+          <% end %>
+        
+          <% if user_signed_in? %>
+            <%= link_to user.name, user_path(user.id) %>
+          <% else %>
+            <%= link_to user.name, new_user_session_path %>
+          <% end %>
+        <% end %>
+      </div>
+    </div>
+
+    <input id="tab02" type="radio" name="tab" class="tab-switch"><label class="tab-label" for="tab02">Follower</label>
+    <div class="tab-content">
+    <div class="follower-box">  
+    <% @user.followers.each do |user| %>
+      
+          <% if !user.image? %>
+            <%= image_tag "icon.png", class:"profile-image1" %>
+          <% else %>
+            <%= image_tag user.image_url,  class: "profile-image1" %>
+          <% end %>
+        
+          <% if user_signed_in? %>
+            <%= link_to user.name, user_path(user.id) %>
+          <% else %>
+            <%= link_to user.name, new_user_session_path %>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+</div>
+

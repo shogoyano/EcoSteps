@@ -1,127 +1,159 @@
 <header>
-<div class="logo2">
-<%= link_to "EcoSteps", root_path %>
-</div>
+  <div class="logo2">
+    <%= link_to "EcoSteps", root_path %>
+  </div>
 
-  <div class="header-list">
-  <div class="search-container">
+ 
   <div class="wordsearch-countainer">
-  <div class="search-box">
-    <%= form_tag({controller:"actives",action:"index"}, method: :get) do %>
+    <div class="search-box">
+      <%= form_tag({controller:"actives",action:"index"}, method: :get) do %>
       <%= text_field_tag :search %>
-      <%= submit_tag '検索する'  %>
+      <%= button_tag :type => "submit", :class =>"btn btn-default btn-s-md" do %>
+        <i class="fas fa-magnifying-glass"></i>
       <% end %>
-  </div>
-
-  <div class="catesearch-container">
-  <div class="search-box">
-  <h3>カテゴリー検索</h3>
-  </div>
-
-  <div class="search-box-outer">
-  <div class = "search-box-inner">
-    <%= form_tag({controller:"actives",action:"index"}, method: :get) do %>
-        <% Tag.all.each do |t| %>
-      
-        <li><%= check_box :tag_ids, t.name %><%= t.name %></li>
-  </div>
-  <% end %>
-</div>
-
-<div class="search-box">
-  <%= submit_tag '検索' %>
-</div>
-  <% end %>
-  </div>
-</div>
-
-<!--
-<%= form_tag({controller:"actives",action:"index"}, method: :get) do %>
-  <%= text_field_tag :tag %>
-  <%= submit_tag 'タグを追加' %>
-<% end %>
--->
-    </div>
-
-
-      <ul>
-      <% if user_signed_in? %>
-        <li><%= link_to "マイページへ", user_path(current_user.id) %></li>
-        <li><%= link_to 'ログアウト', destroy_user_session_path, method: :delete %></li>
-      <% else %>
-        <li><%= link_to "新規登録", new_user_registration_path %></li>
-        <li><%= link_to "ログイン", new_user_session_path %></li>
       <% end %>
-      </ul>
     </div>
-    </header>
+  </div>  
 
+  
+  <div class="hamburger-menu">
+    <input type="checkbox" id="menu-btn-check">
+    <label for="menu-btn-check" class="menu-btn"><span></span></label>
+      <div class="menu-content">
+        <ul>
+          <% if user_signed_in? %>
+            <li><%= link_to "マイページへ", user_path(current_user.id) %></li>
+            <li><%= link_to 'ログアウト', destroy_user_session_path, method: :delete %></li>
+          <% else %>
+            <li><%= link_to "新規登録", new_user_registration_path %></li>
+            <li><%= link_to "ログイン", new_user_session_path %></li>
+          <% end %>
+          
+          <!--
+          <%= form_tag actives_path, method: :get, class: 'boards__searchForm' do %>
+          
+            <%= select_tag :tag_id,
+                   options_from_collection_for_select(Tag.all, :id, :name, params[:tag_id]),
+                   {prompt: 'タグで絞り込み検索', onchange: 'submit(this.form);'}
+            %>
+          <% end %>
+          -->
 
-<div class="main-container">
+            </div> 
+            </div>                                    
+        </ul>
+      </div>
+  </div>
+</header>
 
-<%= image_tag 'eco.jpg', :size =>'100%x100%'%>
-
+<div class ="kari">
 </div>
 
+<div class="slide-box">
+<div class="slide">
+  <%= image_tag 'eco-bag.jpeg' %>
+  <%= image_tag 'eco-bottle.jpeg' %>
+  <%= image_tag 'eco-item.jpeg' %>
+</div>
 
-
-<!--
-<% if user_signed_in? %>
-  <%= link_to "マイページへ", user_path(current_user.id) %>
-  <%= button_to 'ログアウト', destroy_user_session_path, method: :delete %>
-<% end %>
--->
+<div class="slide-center">
+  <h1>EcoSteps</h1>
+  <br>
+  <h3>エコな社会へ、小さな一歩から</h3>
+</div>  
+</div>
 
 <div class="NewPost">
-<h3>New Post</h3>
+  <h1>Posts</h1>
 </div>
 
-<div class="actives-container">
-  <% @actives.each do |t| %>
-    <div class="active">
-      <%= image_tag t.image_url, size: "250x200" if t.image? %>
-      <%= image_tag t.user.image_url, size: "45x30", class: "profile-image9"  if t.user.image? %>
-      <% if user_signed_in? %>
-        <%= link_to t.user.name, user_path(t.user.id) %>
-      <% else %>
-        <%= link_to t.user.name, new_user_session_path %>
-      <% end %>
-        <%= t.title %>
-       
+<hr>
 
-      <% if user_signed_in? %>
-        <% if current_user.already_liked?(t) %>
-          <%= link_to active_like_path(id: t.id, active_id: t.id), method: :delete do %>
-            <i class="fas fa-heart"></i><%= t.likes.count %>
-          <% end %>
-        <% else %>
-          <%= link_to active_likes_path(id: t.id, active_id: t.id), method: :post do %>
-            <i class="fas fa-heart"></i><%= t.likes.count %>
-          <% end %>
-        <% end %>
-      <% else %>
-        <i class="fas fa-heart"></i><%= t.likes.count %>
-      <% end %>
+<% if !@actives.blank? %>
 
-      <%= t.created_at %>
+  <div class="actives-container">
+    <% @actives.each do |t| %>
+      <div class="out-active">
+        <div class="active">
+          
+          <div class="active-path" onclick="location.href='<%= active_path(t.id) %>'" style="cursor: pointer;">
+            
+            <figure> 
+              <% if !t.image? %>
+                <%= image_tag "default-photo.jpg", class:"active-image1" %>
+              <% else %>
+                <%= image_tag t.image_url, class: "active-image1" %>
+              <% end %>
+            </figure>
 
-      <div class="right-container">  
-      <%= link_to "詳細へ", active_path(t.id) %> 
+            <div class="post-top">
+              <div class="post-time">
+                <%= t.updated_at.strftime("%Y-%m-%d") %>
+              </div>
 
-      <% if user_signed_in? && current_user.id == t.user_id %>
-        <%= link_to "編集する", edit_active_path(t.id) %>
-        <%= link_to "削除する", active_path(t.id), method: :delete %>
-      <% end %> 
-      
+              <div class="post-tag">
+                <% t.tags.each do |tag| %>
+                  <span><%= tag.name %></span>
+                <% end %>
+              </div>
+            </div>
+
+            <div class="post-title"> 
+              <%= t.title %>
+            </div> 
+          </div> 
+
+          <div class="active-under">
+
+            <div class="active-user-box">
+              <% if !t.user.image? %>
+                <%= image_tag "user-icon.png", class:"profile-image1" %>
+              <% else %>
+                <%= image_tag t.user.image_url,  class: "profile-image1" %>
+              <% end %>
+              
+              <% if user_signed_in? %>
+                <%= link_to t.user.name, user_path(t.user.id) %>
+              <% else %>
+                <%= link_to t.user.name, new_user_session_path %>
+              <% end %>
+            </div>
+            
+            <div class="active-like">
+              <% if user_signed_in? %>
+                <% if current_user.already_liked?(t) %>
+                  <%= link_to active_like_path(id: t.id, active_id: t.id), method: :delete do %>
+                    <i class="fas fa-heart"></i><%= t.likes.count %>
+                  <% end %>
+                <% else %>
+                  <%= link_to active_likes_path(id: t.id, active_id: t.id), method: :post do %>
+                    <i class="fas fa-heart"></i><%= t.likes.count %>
+                  <% end %>
+                <% end %>
+              <% else %>
+                <i class="fas fa-heart"></i><%= t.likes.count %>
+              <% end %>
+            </div>  
+          </div>
+        </div>  
       </div>
+    <% end %>
+  </div>
 
-      </div>
-  <% end %>
+  <div class = "paginate">
+    <%= paginate @actives %>
+  </div>
 
-</div>
+<% else %>
 
-<%= page_entries_info @actives %>
-<%= paginate @actives %>
+  <div class="none-box">
+    <br>
+    <br>
+    <br>
+    <br>
+  </div>
+  
+<% end %>
 
 <div class="fixed-button">
   <% if user_signed_in? %>
