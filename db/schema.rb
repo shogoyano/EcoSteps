@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_09_21_165755) do
+ActiveRecord::Schema.define(version: 2023_10_09_162650) do
 
   create_table "active_tag_relations", force: :cascade do |t|
     t.integer "active_id", null: false
@@ -28,6 +28,7 @@ ActiveRecord::Schema.define(version: 2023_09_21_165755) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.integer "user_id"
+    t.string "image"
   end
 
   create_table "comments", force: :cascade do |t|
